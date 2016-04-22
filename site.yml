@@ -1,0 +1,8 @@
+---
+# This playbook deploys a Management VPC 
+
+ - hosts: localhost
+   remote_user: root
+
+   roles:
+     - ami-from-ami
