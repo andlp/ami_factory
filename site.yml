@@ -4,6 +4,7 @@
  - hosts: localhost
    connection: local
    #remote_user: root
+   gather_facts: False
 
    roles:
      - ami_from_ami
