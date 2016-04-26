@@ -1,10 +1,10 @@
 ---
 # This playbook deploys a Management VPC 
 
- - hosts: localhost
-   connection: local
-   #remote_user: root
-   gather_facts: False
+- hosts: localhost
+  connection: local
+  #remote_user: root
+#  gather_facts: False
 
-   roles:
+  roles:
      - ami_from_ami
