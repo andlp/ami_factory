@@ -1,16 +1,26 @@
 ---
 - hosts: localhost
+  vars:
+    instance_id:  "FAIL### i-nstanceID Needed"
+    aws_region: "us-east-1"
+    new_ami_name: "RHEL_Core1"
+
   tasks:
- # Basic AMI Creation
-    - ec2_ami:
-#        aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
-#        aws_secret_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        region: us-east-1
-        instance_id: i-37d06fb0
-        wait: yes
-        name: newtest
-#        tags:
-#          Name: newtest
-#          Service: TestService
-      register: instance
-      register: ami 
+  #Basic AMI Creation
+  - name: Creating AMI from Instance
+    ec2_ami:
+      region:  "{{ aws_region }}"
+      instance_id: "{{ instance_id }}"
+      wait: yes
+      name: "{{ new_ami_name }}"
+      state: present
+    register: instance 
+  - debug: var=instance.image_id
+  
+  - name: Create an Instance from the New AMI
+    ec2:
+      region:  "{{ aws_region }}"
+      instance_type: t2.micro
+      image: "{{ instance.image_id }}"
+      wait: yes
+      count: 1
