@@ -14,6 +14,8 @@
       wait: yes
       name: "{{ new_ami_name }}"
       state: present
+      launch_permissions:
+        user_ids: ['223065356675']
     register: instance 
   - debug: var=instance.image_id
   
